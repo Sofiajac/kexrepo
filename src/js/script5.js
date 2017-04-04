@@ -3,7 +3,21 @@ var margin = {top: 20, right: 20, bottom: 30, left: 40};
 var width = +svg.attr("width") - margin.left - margin.right;
 var height = +svg.attr("height") - margin.top - margin.bottom;
 
-var monthsArray = ["January", "Febuary", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+var monthsArray = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+
+for (var i = 1756; i < 2015; i++) {
+    var compareYear1 = document.getElementById("compareYear1");
+    var opt1 = document.createElement('option');
+    opt1.value = i;
+    opt1.innerHTML = i;
+    compareYear1.appendChild(opt1);
+
+    var compareYear2 = document.getElementById("compareYear2");
+    var opt2 = document.createElement('option');
+    opt2.value = i;
+    opt2.innerHTML = i;
+    compareYear2.appendChild(opt2);
+}
 
 /* Variable that holds the data used to visualize the chart */
 var data = d3.nest()
@@ -267,4 +281,36 @@ function updateData() {
     } else {
         sortByMonth(chosenMonth);
     }
+}
+
+
+/* */
+function compareData() {
+    var popup = document.getElementById('popup');
+    popup.style.display='block';
+    document.getElementById('fade').style.display='block';
+    var compareYear1 = document.getElementById('compareYear1').value;
+    var compareMonth1 = document.getElementById('compareMonth1').selectedIndex;
+    var compareYear2 = document.getElementById('compareYear2').value;
+    var compareMonth2 = document.getElementById('compareMonth2').selectedIndex;
+
+    var newData1 = json_data.filter(function (entry){
+        return entry.year == compareYear1 && entry.month == compareMonth1 + 1;
+    });
+    console.log(newData1);
+
+    var meanData1 = d3.mean(newData1, function(d) {return d.adj; });
+    console.log(meanData1);
+
+    var newData2 = json_data.filter(function (entry){
+        return entry.year == compareYear2 && entry.month == compareMonth2 + 1;
+    });
+    console.log(newData2);
+
+    var meanData2 = d3.mean(newData2, function(d) {return d.adj; });
+    console.log(meanData2);
+
+    popup.innerHTML = monthsArray[compareMonth1] + ", " + compareYear1 + ": " + Math.round(meanData1 * 100) / 100 + " &#8451;" + "<br>" 
+                        + monthsArray[compareMonth2] + ", " + compareYear2 + ": " + Math.round(meanData2 * 100) / 100 + " &#8451;";
+    //popup.innerHTML = monthsArray[compareMonth2] + ", " + compareYear2 + ": " + meanData2;
 }
