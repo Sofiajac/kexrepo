@@ -74,6 +74,13 @@ g.selectAll(".bar")
     .attr("y", function(d) { return y(d.value); })
     .attr("width", 3)
     .attr("height", function(d) { return height - y(d.value); })
+    .style("fill", function(d) { 
+            if (d.value < 0) {
+                return "steelblue";
+            } else {
+                return "red";
+            }
+        })
     .on("click", function(d){
         console.log(d.key);
         sortByChosenYear(d.key);
@@ -120,7 +127,13 @@ function sortByYear() {
         .attr("y", function(d) { return y(d.value); })
         .attr("width", 3)
         .attr("height", function(d) { return height - y(d.value); })
-        .style("fill", "steelblue");
+        .style("fill", function(d) { 
+            if (d.value < 0) {
+                return "steelblue";
+            } else {
+                return "red";
+            }
+        });
     svg2.select(".x.axis") // change the x axis
         .duration(750)
         .call(xAxis);
