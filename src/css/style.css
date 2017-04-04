@@ -1,0 +1,53 @@
+.bar {
+    fill: steelblue;
+}
+
+.bar:hover {
+    fill: #8A2BE2 !important;
+}
+
+.axis--x path {
+    display: none;
+}
+
+/* Tooltip taken from https://bl.ocks.org/d3noob/257c360b3650b9f0a52dd8257d7a2d73*/
+div.tooltip {
+  position: absolute;
+  text-align: center;
+  width: 90px;
+  height: 28px;
+  padding: 2px;
+  font: 12px sans-serif;
+  background: lightsteelblue;
+  border: 0px;
+  border-radius: 8px;
+  pointer-events: none;
+  z-index: 9999; /* Bring the tooltip box to the front */
+}
+
+.black_overlay {
+  display: none;
+  position: absolute;
+  top: 0%;
+  left: 0%;
+  width: 100%;
+  height: 100%;
+  background-color: black;
+  z-index: 1001;
+  -moz-opacity: 0.8;
+  opacity: .80;
+  filter: alpha(opacity=80);
+}
+
+.white_content {
+  display: none;
+  position: absolute;
+  top: 25%;
+  left: 25%;
+  width: 50%;
+  height: 50%;
+  padding: 16px;
+  background-color: white;
+  z-index: 1002;
+  overflow: auto;
+}
