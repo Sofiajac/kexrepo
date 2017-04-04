@@ -5,7 +5,7 @@ var height = +svg.attr("height") - margin.top - margin.bottom;
 
 var monthsArray = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 
-for (var i = 1756; i < 2015; i++) {
+for (var i = 1756; i <= 2015; i++) {
     var compareYear1 = document.getElementById("compareYear1");
     var opt1 = document.createElement('option');
     opt1.value = i;
