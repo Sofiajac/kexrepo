@@ -389,6 +389,147 @@ function compareData() {
     console.log(typeof meanData2);
 
 
+    var innerSVG = d3.select("#popup").append("svg").attr("width", 700).attr("height", 400);
+    var innerWidth = 700 - margin.left - margin.right;
+    var innerHeight = 400 - margin.top - margin.bottom;
+        /* Create the chart area and move it to the correct position in the svg graph */
+    var innerG = innerSVG.append("g")
+        .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+    /* Update x and y scaling */
+    var innerX = d3.scaleLinear().rangeRound([0, innerWidth]);
+    var innerY = d3.scaleLinear().rangeRound([innerHeight, 0]);
+
+    /* Define the x and y domains */
+    innerX.domain([0.5, 12.9]);
+
+    var min1 = Math.min(d3.min(meanData1, function(d) { return d.value; }), 0);
+    var min2 = Math.min(d3.min(meanData2, function(d) { return d.value; }), 0);
+    var max1 = d3.max(meanData1, function(d) { return d.value; });
+    var max2 = d3.max(meanData2, function(d) { return d.value; });
+
+    innerY.domain([Math.min(Math.min(min1, min2), 0), Math.max(max1, max2)]);
+
+    /* Create the axes */
+    var innerxAxis = d3.axisBottom(innerX)
+                    .tickSize(5)
+                    .ticks(12)
+                    .tickFormat(function(d){ {return monthsArray[d-1];}})
+                    //.tickFormat(function(d){if (d % 10 == 0) {return d;}})
+                    .tickPadding(3);
+    var inneryAxis = d3.axisLeft(innerY)
+                    .tickSize(5)
+                    .tickPadding(3)
+                    .ticks(20);
+
+
+    /* Tooltip box */
+    var tooltip = d3.select("body").append("div")
+        .attr("class", "tooltip")
+        .style("opacity", 0);
+
+    /* Append the axes */
+    innerG.append("g")
+        .classed("x axis", true)
+        .attr("transform", "translate(0," + innerHeight + ")")
+        .call(innerxAxis);
+    innerG.append("g")
+        .classed("y axis", true)
+        .attr("transform", "translate(-1,0)")
+        .call(inneryAxis);
+
+    /* Append the bars */
+    innerG.selectAll(".year1.bar")
+        .data(meanData1)
+        .enter().append("rect")
+        .attr("class", "bar")
+        .attr("x", function(d) { return innerX(d.key)-innerWidth/26; })
+        .attr("y", function(d) { 
+            if (d.value < 0) {
+                return innerY(0);
+            } else {
+                return innerY(d.value);
+            }
+        })
+        .attr("width", innerWidth/13/2)
+        .attr("height", function(d) { 
+            if (d.value < 0) {
+                return innerY(d.value) - innerY(0);
+            } else {
+                return Math.abs(innerY(d.value) - innerY(0));
+            } 
+        })
+        .style("fill", function(d) { 
+            if (d.value < 0) {
+                return "steelblue";
+            } else {
+                return "red";
+            }
+        })
+        .on("click", function(d){
+            console.log(d.key);
+        })
+        .on("mouseover", function(d) {
+            tooltip.transition()
+                .duration(200)
+                .style("opacity", .9);
+            tooltip.html("Year: " + d.key + "<br/>" + "Temp: " + Math.round(d.value * 100) / 100 + " &#8451;")
+                .style("left", (d3.event.pageX) + "px")
+                .style("top", (d3.event.pageY - 28) + "px");
+            })
+        .on("mouseout", function(d) {
+            tooltip.transition()
+                .duration(500)
+                .style("opacity", 0);
+           });
+
+
+        innerG.selectAll(".year2.bar")
+        .data(meanData2)
+        .enter().append("rect")
+        .attr("class", "bar")
+        .attr("x", function(d) { return innerX(d.key)-innerWidth/26+innerWidth/13/2; })
+        .attr("y", function(d) { 
+            if (d.value < 0) {
+                return innerY(0);
+            } else {
+                return innerY(d.value);
+            }
+        })
+        .attr("width", innerWidth/13/2)
+        .attr("height", function(d) { 
+            if (d.value < 0) {
+                return innerY(d.value) - innerY(0);
+            } else {
+                return Math.abs(innerY(d.value) - innerY(0));
+            } 
+        })
+        .style("fill", function(d) { 
+            if (d.value < 0) {
+                return "blue";
+            } else {
+                return "darkred";
+            }
+        })
+        .on("click", function(d){
+            console.log(d.key);
+        })
+        .on("mouseover", function(d) {
+            tooltip.transition()
+                .duration(200)
+                .style("opacity", .9);
+            tooltip.html("Year: " + d.key + "<br/>" + "Temp: " + Math.round(d.value * 100) / 100 + " &#8451;")
+                .style("left", (d3.event.pageX) + "px")
+                .style("top", (d3.event.pageY - 28) + "px");
+            })
+        .on("mouseout", function(d) {
+            tooltip.transition()
+                .duration(500)
+                .style("opacity", 0);
+           });
+
+
+/*
 
     //NEW CODE TO COMPARE!!!!!!!
     // Scale the range of the data again
@@ -398,7 +539,7 @@ function compareData() {
     x.domain([0.5, 12.9])
     console.log(x.domain());
     y.domain([Math.min(d3.min(meanData1, function(d) { return d.value; }), 0), d3.max(meanData1, function(d) { return d.value; })]);
-    /* Update the axes */
+    /* Update the axes 
     xAxis = d3.axisBottom(x)
                     .tickSize(5)
                     .ticks(12)
@@ -440,7 +581,7 @@ function compareData() {
     });
     
     // Make the changes
-    var svg2 = d3.select("svg").transition();
+    //var svg2 = d3.select("svg").transition();
     svg.transition().selectAll(".bar")   // change the bars
         .duration(750)
         .attr("x", function(d) { return x(d.key)-width/26; })
@@ -466,6 +607,7 @@ function compareData() {
                 return "red";
             }
         });
+        */
     
     
 
@@ -481,8 +623,8 @@ function compareData() {
     console.log(meanData2);
     */
 
-    popup.innerHTML = monthsArray[compareMonth1] + ", " + compareYear1 + ": " + Math.round(meanData1 * 100) / 100 + " &#8451;" + "<br>" 
-                        + monthsArray[compareMonth2] + ", " + compareYear2 + ": " + Math.round(meanData2 * 100) / 100 + " &#8451;";
+    //popup.innerHTML = monthsArray[compareMonth1] + ", " + compareYear1 + ": " + Math.round(meanData1 * 100) / 100 + " &#8451;" + "<br>" 
+      //                  + monthsArray[compareMonth2] + ", " + compareYear2 + ": " + Math.round(meanData2 * 100) / 100 + " &#8451;";
     //popup.innerHTML = monthsArray[compareMonth2] + ", " + compareYear2 + ": " + meanData2;
 
 }
