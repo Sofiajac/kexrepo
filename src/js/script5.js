@@ -386,26 +386,11 @@ function compareData() {
         }).entries(newData2);
 
     console.log(meanData2);
+    console.log(typeof meanData2);
 
 
 
     //NEW CODE TO COMPARE!!!!!!!
-    svg.selectAll(".bar").data(meanData1)
-    .on("click", null)
-    .on("mouseover", function(d) {
-    tooltip.transition()
-        .duration(200)
-        .style("opacity", .9);
-    tooltip.html("Month: " + monthsArray[d.key-1] + "<br/>" + "Temp: " + Math.round(d.value * 100) / 100 + " &#8451;")
-        .style("left", (d3.event.pageX) + "px")
-        .style("top", (d3.event.pageY - 28) + "px");
-    })
-    .on("mouseout", function(d) {
-        tooltip.transition()
-            .duration(500)
-            .style("opacity", 0);
-    });
-    
     // Scale the range of the data again
     //x = d3.scaleTime();
 
@@ -428,9 +413,35 @@ function compareData() {
                     .tickPadding(3)
                     .ticks(20);
 
+    svg.select(".x.axis") // change the x axis
+        .transition()
+        .duration(750)
+        .call(xAxis);
+    svg.select(".y.axis") // change the y axis
+        .transition()
+        .duration(750)
+        .call(yAxis);
+
+
+    svg.selectAll(".bar").data(null)
+    .on("click", null)
+    .on("mouseover", function(d) {
+    tooltip.transition()
+        .duration(200)
+        .style("opacity", .9);
+    tooltip.html("Month: " + monthsArray[d.key-1] + "<br/>" + "Temp: " + Math.round(d.value * 100) / 100 + " &#8451;")
+        .style("left", (d3.event.pageX) + "px")
+        .style("top", (d3.event.pageY - 28) + "px");
+    })
+    .on("mouseout", function(d) {
+        tooltip.transition()
+            .duration(500)
+            .style("opacity", 0);
+    });
+    
     // Make the changes
     var svg2 = d3.select("svg").transition();
-    svg2.selectAll(".bar")   // change the bars
+    svg.transition().selectAll(".bar")   // change the bars
         .duration(750)
         .attr("x", function(d) { return x(d.key)-width/26; })
         .attr("y", function(d) { 
@@ -455,12 +466,7 @@ function compareData() {
                 return "red";
             }
         });
-    svg2.select(".x.axis") // change the x axis
-        .duration(750)
-        .call(xAxis);
-    svg2.select(".y.axis") // change the y axis
-        .duration(750)
-        .call(yAxis);
+    
     
 
     //var meanData1 = d3.mean(newData1, function(d) {return d.adj; });
