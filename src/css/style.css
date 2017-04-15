@@ -51,3 +51,27 @@ div.tooltip {
   z-index: 1002;
   overflow: auto;
 }
+
+.barcolor {
+  float: left;
+  width: 10px;
+  height: 10px;
+  margin: 3px;
+  border: 1px solid rgba(0, 0, 0, .2);
+}
+
+.blue1 {
+  background: steelblue;
+}
+
+.blue2 {
+  background: blue;
+}
+
+.red1 {
+  background: red;
+}
+
+.red2 {
+  background: darkred;
+}

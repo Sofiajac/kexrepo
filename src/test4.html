@@ -11,10 +11,11 @@
 </head>
 <body>
 	<div>
+		<font face = "Cambria">Choose a specific month to view the temperatures in the graph</font><br>
 		<select id="monthSelection">
 			<option>Year</option>
 			<option>January</option>
-			<option>Febuary</option>
+			<option>February</option>
 			<option>March</option>
 			<option>April</option>
 			<option>May</option>
@@ -24,20 +25,27 @@
 			<option>September</option>
 			<option>October</option>
 			<option>November</option>
-			<option>Decembyyyyr</option>
+			<option>December</option>
 		</select>
-		<button onclick="updateData()">Click me!</button>
+		<button onclick="updateData()">Update</button>
 	</div>
 	<svg width="1560" height="500"></svg>
 	<div id="popup" class="white_content">
+		<!-- förklaring till färgerna, men behövs nog inte...
+		<div class="barcolor blue1"></div> 
+		<div class="barcolor red1"></div><br>
+		<h></h>
+		<div class="barcolor blue2"></div>
+		<div class="barcolor red2"></div>-->
 		<!--<svg id="popupSVG" width="100%" height="100%"></svg>-->
 	</div>
 	<div id="fade" class="black_overlay" onclick="document.getElementById('popup').style.display='none';document.getElementById('fade').style.display='none'"></div>
 	<div>
+		<font face = "Cambria">Choose specific years and months to compare temperatures</font><br>
 		<select id="compareYear1"></select>
 		<select id="compareMonth1">
 			<option>January</option>
-			<option>Febuary</option>
+			<option>February</option>
 			<option>March</option>
 			<option>April</option>
 			<option>May</option>
@@ -47,13 +55,13 @@
 			<option>September</option>
 			<option>October</option>
 			<option>November</option>
-			<option>Decembyyyyr</option>
+			<option>December</option>
 		</select>
 
 		<select id="compareYear2"></select>
 		<select id="compareMonth2">
 			<option>January</option>
-			<option>Febuary</option>
+			<option>February</option>
 			<option>March</option>
 			<option>April</option>
 			<option>May</option>
@@ -63,7 +71,7 @@
 			<option>September</option>
 			<option>October</option>
 			<option>November</option>
-			<option>Decembyyyyr</option>
+			<option>December</option>
 		</select>
 		<button onclick="updateCompare()">Compare</button>
 	</div>
