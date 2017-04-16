@@ -11,9 +11,9 @@
 </head>
 <body>
 	<div>
-		<font face = "Cambria">Choose a specific month to view the temperatures in the graph</font><br>
-		<select id="monthSelection">
-			<option>Year</option>
+		<h1 class="marginLeft15">Select a specific month to view the mean temperatures in the graph</h1>
+		<select id="monthSelection" class="marginLeft20">
+			<option>-- Yearly --</option>
 			<option>January</option>
 			<option>February</option>
 			<option>March</option>
@@ -27,53 +27,30 @@
 			<option>November</option>
 			<option>December</option>
 		</select>
-		<button onclick="updateData()">Update</button>
+		<button class="button marginLeft20" onclick="updateData()">Update</button>
+		<span class="marginLeft20">Click a bar in the chart to view more detailed information about the selected year.</span>
 	</div>
+
 	<svg width="1560" height="500"></svg>
 	<div id="popup" class="white_content">
-		<!-- förklaring till färgerna, men behövs nog inte...
-		<div class="barcolor blue1"></div> 
-		<div class="barcolor red1"></div><br>
-		<h></h>
-		<div class="barcolor blue2"></div>
-		<div class="barcolor red2"></div>-->
+		<div>
+			<span class="barcolor blue1"></span>
+			<span class="barcolor red1"></span>
+			<span id="explYear1"></span>
+			<br>
+			<span class="barcolor blue2"></span>
+			<span class="barcolor red2"></span>
+			<span id="explYear2"></span>
+		</div>
 		<!--<svg id="popupSVG" width="100%" height="100%"></svg>-->
 	</div>
 	<div id="fade" class="black_overlay" onclick="document.getElementById('popup').style.display='none';document.getElementById('fade').style.display='none'"></div>
 	<div>
-		<font face = "Cambria">Choose specific years and months to compare temperatures</font><br>
-		<select id="compareYear1"></select>
-		<select id="compareMonth1">
-			<option>January</option>
-			<option>February</option>
-			<option>March</option>
-			<option>April</option>
-			<option>May</option>
-			<option>June</option>
-			<option>July</option>
-			<option>August</option>
-			<option>September</option>
-			<option>October</option>
-			<option>November</option>
-			<option>December</option>
-		</select>
-
-		<select id="compareYear2"></select>
-		<select id="compareMonth2">
-			<option>January</option>
-			<option>February</option>
-			<option>March</option>
-			<option>April</option>
-			<option>May</option>
-			<option>June</option>
-			<option>July</option>
-			<option>August</option>
-			<option>September</option>
-			<option>October</option>
-			<option>November</option>
-			<option>December</option>
-		</select>
-		<button onclick="updateCompare()">Compare</button>
+		<h1 class="marginLeft15">Select two years to compare their monthly temperatures</h1>
+		<select class="marginLeft20" id="compareYear1"></select>
+		<select class="marginLeft20" id="compareYear2"></select>
+		
+		<button class="button marginLeft20" onclick="updateCompare()">Compare</button>
 	</div>
 
 </body>

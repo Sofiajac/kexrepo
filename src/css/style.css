@@ -1,13 +1,13 @@
 .bar {
-    fill: steelblue;
+  fill: steelblue;
 }
 
 .bar:hover {
-    fill: #8A2BE2 !important;
+  fill: #8A2BE2 !important;
 }
 
 .axis--x path {
-    display: none;
+  display: none;
 }
 
 /* Tooltip taken from https://bl.ocks.org/d3noob/257c360b3650b9f0a52dd8257d7a2d73*/
@@ -17,7 +17,7 @@ div.tooltip {
   width: 90px;
   height: 28px;
   padding: 2px;
-  font: 12px sans-serif;
+  font: 12px Cambria;
   background: lightsteelblue;
   border: 0px;
   border-radius: 8px;
@@ -74,4 +74,39 @@ div.tooltip {
 
 .red2 {
   background: darkred;
+}
+
+body {
+  font-family: Cambria;
+}
+
+.marginLeft15 {
+  margin-left: 15px;
+}
+
+body select {
+  padding: 5px;
+  font-size: 1.2em;
+  font-family: Cambria;
+  border: 1px solid grey;
+  border-radius: 10px;
+}
+
+.marginLeft20 {
+  margin-left: 20px;
+}
+
+.button {
+  background-color: lightgrey;
+  border: 1px solid grey;
+  border-radius: 10px;
+  color: black;
+  padding: 6px 12px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  cursor: pointer;
+  font-family: Cambria;
+  font-size: 1.2em;
 }

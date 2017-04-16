@@ -349,10 +349,11 @@ function updateData() {
     //popup.style.display='block';
     //document.getElementById('fade').style.display='block';
     var compareYear1 = document.getElementById('compareYear1').value;
-    
-    var compareMonth1 = document.getElementById('compareMonth1').selectedIndex;
     var compareYear2 = document.getElementById('compareYear2').value;
-    var compareMonth2 = document.getElementById('compareMonth2').selectedIndex;
+
+    document.getElementById("explYear1").innerHTML = compareYear1;// = "heehj";
+    //console.log(color1);
+    document.getElementById("explYear2").innerHTML = compareYear2;// = "heehj";
 
     var newData1 = json_data.filter(function (entry){
         return entry.year == compareYear1;// && entry.month == compareMonth1 + 1;
@@ -388,9 +389,9 @@ function updateData() {
     console.log(typeof meanData2);
 
 
-    var innerSVG = d3.select("#popup").append("svg").attr("id", "innerSVG").attr("width", 700).attr("height", 400);
-    var innerWidth = 700 - margin.left - margin.right;
-    var innerHeight = 400 - margin.top - margin.bottom;
+    var innerSVG = d3.select("#popup").append("svg").attr("id", "innerSVG").attr("width", 750).attr("height", 350);
+    var innerWidth = 750 - margin.left - margin.right;
+    var innerHeight = 350 - margin.top - margin.bottom;
         /* Create the chart area and move it to the correct position in the svg graph */
     var innerG = innerSVG.append("g")
         .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
@@ -637,10 +638,7 @@ function updateCompare() {
     popup.style.display='block';
     document.getElementById('fade').style.display='block';
     var compareYear1 = document.getElementById('compareYear1').value;
-    
-    var compareMonth1 = document.getElementById('compareMonth1').selectedIndex;
     var compareYear2 = document.getElementById('compareYear2').value;
-    var compareMonth2 = document.getElementById('compareMonth2').selectedIndex;
 
     var updateNewData1 = json_data.filter(function (entry){
         return entry.year == compareYear1;// && entry.month == compareMonth1 + 1;
