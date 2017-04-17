@@ -351,9 +351,9 @@ function updateData() {
     var compareYear1 = document.getElementById('compareYear1').value;
     var compareYear2 = document.getElementById('compareYear2').value;
 
-    document.getElementById("explYear1").innerHTML = compareYear1;// = "heehj";
+    //document.getElementById("explYear1").innerHTML = compareYear1;// = "heehj";
     //console.log(color1);
-    document.getElementById("explYear2").innerHTML = compareYear2;// = "heehj";
+    //document.getElementById("explYear2").innerHTML = compareYear2;// = "heehj";
 
     var newData1 = json_data.filter(function (entry){
         return entry.year == compareYear1;// && entry.month == compareMonth1 + 1;
