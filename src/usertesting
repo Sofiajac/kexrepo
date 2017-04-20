@@ -1,0 +1,50 @@
+User:
+- too many datapoints- difficult to click the bars, too thin bars.
+	- drag and select
+	- zoom
+
+
+- man ser 0-linjen
+- färgerna 
+
+
+- legend - explaining colors
+- mer avstånd mellan månaderna, men att de ändå är grupperade två och två inom samma månad.
+
+
+- kolla upp en specifik temp en specifik dag. 
+
+- ju mer man zoomar desto färre staplar syns, tillräckligt zoomat --> börjar sortera på månad och sen dag.
+
+- user could close the popup intuatively, first try
+
+- design, not responsive. Högercentrerat, inget är lika brett osv
+
+- hur går man tillbaka? User provade att klicka på ESC, reset-knapp?
+
+
+- flera sidor/undersidor, som man kan få lite mer struktur på sidan
+
+
+
+Linn & Felix: 
+- Svårt att få ett grasp när det är så många år, - Svårt att se sammanhang.
+- Kurva som är anpassad efter staplarna
+- Kunna välja vilket spann man själv vill, inte alla åren
+- Lätt att förstå att man ska clicka på compare.
+- Men utan att hoovra vet man inte vad varje stapel representerar
+- F: svarta strecken ska rama in gruppen av månad
+- Avstånden mellan grupperna räcker för att man ska förstå att de är olika månader.
+- L: kanske 
+- De förstod inte att man kunde klicka på en enskild stapel, även fast texten stod där. "Liten text"
+- De vlade inte att skriva in siffror för att hitta åren i listan. "jobbigt att scrolla"
+- F: jag visste att det gör att "söka" i 
+- F: plain, fyller syftet
+- L: göra texten större "click"-texten
+- F: Göra den kortare, koncicare för att det ska vara tydligare. 
+- Man förstår att man ska klicka på det svarta ytan utanför, som facebook. de har en kryssruta också.
+- Anpassa grafen till hela popuens yta
+- Kunna gå tillbaka, typ 5 steg
+- F: Om man ser ETT år och klickar update så är det den månaden för just det året. Så yearly är hela det året, en månad visar vaje dag den månaden. (featuers). "Bakåt-knapp"
+- L: typsnittet för att den ser mer fancy ut, för att vara så enkel. 
+- F: typsnitt, skulle använda Roboto
