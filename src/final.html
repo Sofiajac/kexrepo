@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Temperatures 1756-2015</title>
+	<link rel="stylesheet" type="text/css" href="css/style.css">  
+	<script src="https://d3js.org/d3.v4.min.js"></script>
+	<script src="out.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+	<!-- <script type="text/javascript" src="js/script5.js"></script> -->
+</head>
+<body>
+	<h1>Mean Temperatures 1756-2015</h1>
+	<div id="parent">
+		<div id="wide">
+			<h2 class="marginLeft15">Select a specific month to view the mean temperatures in the graph</h2>
+			<select id="monthSelection" class="marginLeft20">
+				<option>-- Yearly --</option>
+				<option>January</option>
+				<option>February</option>
+				<option>March</option>
+				<option>April</option>
+				<option>May</option>
+				<option>June</option>
+				<option>July</option>
+				<option>August</option>
+				<option>September</option>
+				<option>October</option>
+				<option>November</option>
+				<option>December</option>
+			</select>
+
+			<div style="margin-top: 20px;">
+				<strong class="marginLeft20">From</strong>
+				<select class="marginLeft20" id="timeSpanYear1"></select>
+				<strong class="marginLeft20">to</strong>
+				<select class="marginLeft20" id="timeSpanYear2"></select>
+				<div class="marginLeft20">Click a bar in the chart to view more detailed information about the selected year.</div>
+			</div>
+		</div>
+
+		<div id="narrow">
+			<h2 class="marginLeft15">Select two years to compare their monthly temperatures</h2>
+	<select class="marginLeft20" id="compareYear1"></select>
+	<select class="marginLeft20" id="compareYear2"></select>
+
+	<button class="button marginLeft20" onclick="updateCompare()">Compare</button>
+		</div>
+
+	</div>
+</div>
+
+<svg width="1560" height="500"></svg>
+<div id="popup" class="white_content">
+		<!--<div>
+			<span class="barcolor blue1"></span>
+			<span class="barcolor red1"></span>
+			<span id="explYear1"></span>
+			<br>
+			<span class="barcolor blue2"></span>
+			<span class="barcolor red2"></span>
+			<span id="explYear2"></span>
+		</div>-->
+		<!--<svg id="popupSVG" width="100%" height="100%"></svg>-->
+	</div>
+	<div id="fade" class="black_overlay" onclick="document.getElementById('popup').style.display='none';document.getElementById('fade').style.display='none'"></div>
+	
+
+</body>
+<script type="text/javascript" src="js/final.js"></script>
+</html>

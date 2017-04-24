@@ -1,3 +1,22 @@
+body > h1{
+  text-align: center;
+}
+
+#parent {
+  display: flex;
+}
+#narrow {
+  width: 50%;
+  /*background: lightblue;*/
+  /* Just so it's visible */
+}
+#wide {
+  flex: 1;
+  /* Grow to rest of container */
+  /*background: lightgreen;*/
+  /* Just so it's visible */
+}
+
 .bar {
   fill: steelblue;
 }
