@@ -113,18 +113,52 @@ g.selectAll(".bar")
 
 /* Updates the chart to show the mean temperature each year */
 function sortByYear() {
+    var fromYear = document.getElementById("timeSpanYear1").value;
+    var toYear = document.getElementById("timeSpanYear2").value;
+    console.log(fromYear);
+    console.log(toYear);
+    var newData = json_data.filter(function (entry){
+        return (entry.year >= fromYear && entry.year <= toYear);
+    });
     var dataYear = d3.nest()
     .key(function(d) { return +d.year;})
     .rollup(function(d) { 
         return d3.mean(d, function(g) {return g.adj; });
-    }).entries(json_data);
+    }).entries(newData);
 
-    g.selectAll(".bar").data(dataYear)
-        .on("click", function(d){
-            console.log(d.key);
-            sortByChosenYear(d.key);
+    var bars = g.selectAll(".bar").data(dataYear)
+    .on("click", function(d){
+        console.log(d.key);
+        sortByChosenYear(d.key);
+    })
+    .on("mouseover", function(d) {
+    tooltip.transition()
+        .duration(200)
+        .style("opacity", .9);
+    tooltip.html("Year: " + d.key + "<br/>" + "Temp: " + Math.round(d.value * 100) / 100 + " &#8451;")
+        .style("left", (d3.event.pageX) + "px")
+        .style("top", (d3.event.pageY - 28) + "px");
+    })
+    .on("mouseout", function(d) {
+        tooltip.transition()
+            .duration(500)
+            .style("opacity", 0);
+    });
+    bars.exit().remove();
+    bars.enter().append("rect")
+    .attr("class", "bar")
+    .style("fill", function(d) { 
+            if (d.value < 0) {
+                return "steelblue";
+            } else {
+                return "red";
+            }
         })
-        .on("mouseover", function(d) {
+    .on("click", function(d){
+        console.log(d.key);
+        sortByChosenYear(d.key);
+    })
+    .on("mouseover", function(d) {
         tooltip.transition()
             .duration(200)
             .style("opacity", .9);
@@ -132,30 +166,55 @@ function sortByYear() {
             .style("left", (d3.event.pageX) + "px")
             .style("top", (d3.event.pageY - 28) + "px");
         })
-        .on("mouseout", function(d) {
-            tooltip.transition()
-                .duration(500)
-                .style("opacity", 0);
-        });
-    x.domain([1756, 2015]);
-    y.domain([0, d3.max(dataYear, function(d) { return d.value; })]);
+    .on("mouseout", function(d) {
+        tooltip.transition()
+            .duration(500)
+            .style("opacity", 0);
+       });
+    
+    // Scale the range of the data again
+    x.domain([+fromYear-0.5, (+toYear+0.9)]);
+    y.domain([Math.min(d3.min(dataYear, function(d) { return d.value; }), 0), d3.max(dataYear, function(d) { return d.value; })]);
+    /* Update the axes */
     xAxis = d3.axisBottom(x)
-                .tickSize(5)
-                .tickFormat(function(d){if (d % 10 == 0) {return d;}})
-                .tickPadding(3)
-                .ticks(26);
+                    .tickSize(5)
+                    .tickFormat(function(d){
+                        if (toYear - fromYear < 20) {
+                            if (d % 1 == 0) {
+                                return d;
+                            }
+                        } else if (d % 10 == 0){
+                            return d;
+                        }
+                        
+                    })
+                    .tickPadding(3)
+                    .ticks(26);
     yAxis = d3.axisLeft(y)
-                .tickSize(5)
-                .tickPadding(3)
-                .ticks(20);
-        
+                    .tickSize(5)
+                    .tickPadding(3)
+                    .ticks(20);
+
+    // Make the changes
     var svg2 = d3.select("svg").transition();
     svg2.selectAll(".bar")   // change the bars
         .duration(750)
-        .attr("x", function(d) { return x(d.key); })
-        .attr("y", function(d) { return y(d.value); })
-        .attr("width", 3)
-        .attr("height", function(d) { return height - y(d.value); })
+        .attr("x", function(d) { return x(d.key) - 1560/(toYear - fromYear)/4; })
+        .attr("y", function(d) { 
+            if (d.value < 0) {
+                return y(0);
+            } else {
+                return y(d.value);
+            }
+        })
+        .attr("width", 1560/(toYear - fromYear)/2)
+        .attr("height", function(d) { 
+            if (d.value < 0) {
+                return y(d.value) - y(0);
+            } else {
+                return Math.abs(y(d.value) - y(0));
+            } 
+        })
         .style("fill", function(d) { 
             if (d.value < 0) {
                 return "steelblue";
@@ -173,10 +232,17 @@ function sortByYear() {
 
 /* Updates the chart to show the mean temperature over a specified month each year */
 function sortByMonth(month) {
+    var fromYear = document.getElementById("timeSpanYear1").value;
+    var toYear = document.getElementById("timeSpanYear2").value;
+    console.log(fromYear);
+    console.log(toYear);
+    // Extract the temperatures for the specific month
     var newData = json_data.filter(function (entry){
-                return entry.month == month;
-            });
+        return (entry.month == month && entry.year >= fromYear && entry.year <= toYear);
+    });
+    console.log(newData);
 
+    // Group and compute mean values
     var datamonth = d3.nest()
         .key(function(d) { return +d.year;
         })
@@ -185,8 +251,9 @@ function sortByMonth(month) {
                 return g.adj; 
             });
         }).entries(newData);
+        console.log(datamonth);
 
-    g.selectAll(".bar").data(datamonth)
+    var bars = g.selectAll(".bar").data(datamonth)
         .on("click", function(d){
             console.log(d.key);
             sortByChosenYear(d.key);
@@ -204,16 +271,52 @@ function sortByMonth(month) {
                 .duration(500)
                 .style("opacity", 0);
         });
+    bars.exit().remove();
+    bars.enter().append("rect")
+    .attr("class", "bar")
+    .style("fill", function(d) { 
+            if (d.value < 0) {
+                return "steelblue";
+            } else {
+                return "red";
+            }
+        })
+    .on("click", function(d){
+        console.log(d.key);
+        sortByChosenYear(d.key);
+    })
+    .on("mouseover", function(d) {
+        tooltip.transition()
+            .duration(200)
+            .style("opacity", .9);
+        tooltip.html("Year: " + d.key + "<br/>" + "Temp: " + Math.round(d.value * 100) / 100 + " &#8451;")
+            .style("left", (d3.event.pageX) + "px")
+            .style("top", (d3.event.pageY - 28) + "px");
+        })
+    .on("mouseout", function(d) {
+        tooltip.transition()
+            .duration(500)
+            .style("opacity", 0);
+       });
     
     // Scale the range of the data again
-    x.domain([1756, 2015]);
+    x.domain([+fromYear-0.5, (+toYear+0.9)]);
     y.domain([Math.min(d3.min(datamonth, function(d) { return d.value; }), 0), d3.max(datamonth, function(d) { return d.value; })]);
     /* Update the axes */
     xAxis = d3.axisBottom(x)
                     .tickSize(5)
-                    .tickFormat(function(d){if (d % 10 == 0) {return d;}})
+                    .tickFormat(function(d){
+                        if (toYear - fromYear < 20) {
+                            if (d % 1 == 0) {
+                                return d;
+                            }
+                        } else if (d % 10 == 0){
+                            return d;
+                        }
+                        
+                    })
                     .tickPadding(3)
-                    .ticks(26);
+                    //.ticks(26);
     yAxis = d3.axisLeft(y)
                     .tickSize(5)
                     .tickPadding(3)
@@ -223,7 +326,7 @@ function sortByMonth(month) {
     var svg2 = d3.select("svg").transition();
     svg2.selectAll(".bar")   // change the bars
         .duration(750)
-        .attr("x", function(d) { return x(d.key); })
+        .attr("x", function(d) { return x(d.key) - 1560/(toYear - fromYear)/4; })
         .attr("y", function(d) { 
             if (d.value < 0) {
                 return y(0);
@@ -231,7 +334,7 @@ function sortByMonth(month) {
                 return y(d.value);
             }
         })
-        .attr("width", 3)
+        .attr("width", 1560/(toYear - fromYear)/2)
         .attr("height", function(d) { 
             if (d.value < 0) {
                 return y(d.value) - y(0);
@@ -272,7 +375,7 @@ function sortByChosenYear(year) {
 
         console.log(groupedData);
 
-    g.selectAll(".bar").data(groupedData)
+    var bars = g.selectAll(".bar").data(groupedData)
     .on("click", null)
     .on("mouseover", function(d) {
     tooltip.transition()
@@ -287,6 +390,32 @@ function sortByChosenYear(year) {
             .duration(500)
             .style("opacity", 0);
     });
+
+    bars.enter().append("rect")
+    .attr("class", "bar")
+    .style("fill", function(d) { 
+            if (d.value < 0) {
+                return "steelblue";
+            } else {
+                return "red";
+            }
+        })
+    .on("click", null)
+    .on("mouseover", function(d) {
+    tooltip.transition()
+        .duration(200)
+        .style("opacity", .9);
+    tooltip.html("Month: " + monthsArray[d.key-1] + "<br/>" + "Temp: " + Math.round(d.value * 100) / 100 + " &#8451;")
+        .style("left", (d3.event.pageX) + "px")
+        .style("top", (d3.event.pageY - 28) + "px");
+    })
+    .on("mouseout", function(d) {
+        tooltip.transition()
+            .duration(500)
+            .style("opacity", 0);
+    });
+    
+    bars.exit().remove();
     
     // Scale the range of the data again
     //x = d3.scaleTime();
@@ -803,5 +932,10 @@ function updateCompare() {
                     return "darkred";
                 }
             });
+}
 
+function hidePopup() {
+        console.log("hidePopup");
+        document.getElementById('popup').style.display='none';
+        document.getElementById('fade').style.display='none';
 }

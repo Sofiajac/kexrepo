@@ -14,7 +14,7 @@
 	<div id="parent">
 		<div id="wide">
 			<h2 class="marginLeft15">Select a specific month to view the mean temperatures in the graph</h2>
-			<select id="monthSelection" class="marginLeft20">
+			<select id="monthSelection" class="marginLeft20" onchange="updateData()">
 				<option>-- Yearly --</option>
 				<option>January</option>
 				<option>February</option>
@@ -41,10 +41,10 @@
 
 		<div id="narrow">
 			<h2 class="marginLeft15">Select two years to compare their monthly temperatures</h2>
-	<select class="marginLeft20" id="compareYear1"></select>
-	<select class="marginLeft20" id="compareYear2"></select>
+			<select class="marginLeft20" id="compareYear1"></select>
+			<select class="marginLeft20" id="compareYear2"></select>
 
-	<button class="button marginLeft20" onclick="updateCompare()">Compare</button>
+			<button class="button marginLeft20" onclick="updateCompare()">Compare</button>
 		</div>
 
 	</div>
@@ -63,7 +63,7 @@
 		</div>-->
 		<!--<svg id="popupSVG" width="100%" height="100%"></svg>-->
 	</div>
-	<div id="fade" class="black_overlay" onclick="document.getElementById('popup').style.display='none';document.getElementById('fade').style.display='none'"></div>
+	<div id="fade" class="black_overlay" onclick="hidePopup()"></div>
 	
 
 </body>
