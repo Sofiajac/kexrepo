@@ -47,6 +47,48 @@ var data = d3.nest()
     }).entries(json_data);
     //console.log(data);
 
+var gradient1 = svg.append("defs")
+    .append("linearGradient")
+    .attr("id", "gradient1")
+    .attr("x1", "0%")
+    .attr("y1", "0%")
+    .attr("x2", "0%")
+    .attr("y2", "100%")
+    .attr("gradientUnits", "userSpaceOnUse")
+    //.attr("spreadMethod", "pad");
+
+    gradient1.append("stop")
+    .attr("id", "stop1")
+    .attr("offset", "0%")
+    .attr("stop-color", "red")
+    .attr("stop-opacity", 1);
+
+    gradient1.append("stop")
+    .attr("id", "stop2")
+    .attr("offset", "100%")
+    .attr("stop-color", "lightgrey")
+    .attr("stop-opacity", 1);
+
+var gradient2 = svg.append("defs")
+    .append("linearGradient")
+    .attr("id", "gradient2")
+    .attr("x1", "0%")
+    .attr("y1", "0%")
+    .attr("x2", "0%")
+    .attr("y2", "100%")
+    .attr("gradientUnits", "userSpaceOnUse");
+    //.attr("spreadMethod", "pad");
+
+    gradient2.append("stop")
+    .attr("offset", "0%")
+    .attr("stop-color", "lightgrey")
+    .attr("stop-opacity", 1);
+
+    gradient2.append("stop")
+    .attr("offset", "100%")
+    .attr("stop-color", "steelblue")
+    .attr("stop-opacity", 1);
+
 /* Create the chart area and move it to the correct position in the svg graph */
 var g = svg.append("g")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
@@ -58,6 +100,11 @@ var y = d3.scaleLinear().rangeRound([height, 0]);
 /* Define the x and y domains */
 x.domain([1756, 2015]);
 y.domain([0, d3.max(data, function(d) { return d.value; })]);
+var colorScale = d3.scaleLinear()
+    .domain([3, 10])
+    .range(["grey", "red"])
+    //.interpolate(d3.interpolateHcl);
+
 
 /* Create the axes */
 var xAxis = d3.axisBottom(x)
@@ -94,13 +141,21 @@ g.selectAll(".bar")
     .attr("y", function(d) { return y(d.value); })
     .attr("width", 3)
     .attr("height", function(d) { return height - y(d.value); })
-    .style("fill", function(d) { 
+    /*.style("fill", function(d) { 
             if (d.value < 0) {
                 return "steelblue";
             } else {
-                return "red";
+                return colorScale(d.value);
+            }
+        })*/
+    .style("fill", function(d) { 
+            if (d.value < 0) {
+                return "url(#gradient2)";
+            } else {
+                return "url(#gradient1)"
             }
         })
+    //.style("fill", "url(#gradient1)")
     .on("click", function(d){
         console.log(d.key);
         sortByChosenYear(d.key);
@@ -157,9 +212,9 @@ function sortByYear() {
     .attr("class", "bar")
     .style("fill", function(d) { 
             if (d.value < 0) {
-                return "steelblue";
+                return "url(#gradient2)";
             } else {
-                return "red";
+                return "url(#gradient1)"
             }
         })
     .on("click", function(d){
@@ -225,9 +280,9 @@ function sortByYear() {
         })
         .style("fill", function(d) { 
             if (d.value < 0) {
-                return "steelblue";
+                return "url(#gradient2)";
             } else {
-                return "red";
+                return "url(#gradient1)"
             }
         });
     svg2.select(".x.axis") // change the x axis
@@ -261,6 +316,18 @@ function sortByMonth(month) {
         }).entries(newData);
         console.log(datamonth);
 
+    // Scale the range of the data again
+    x.domain([+fromYear-0.5, (+toYear+0.9)]);
+    y.domain([Math.min(d3.min(datamonth, function(d) { return d.value; }), 0), d3.max(datamonth, function(d) { return d.value; })]);
+    
+    //d3.select("#stop1").attr("offset", (+svg.attr("height") - margin.top - margin.bottom - y(0)))//.attr("y2", y(d3.max(datamonth, function(d) { return d.value; })));
+    var string1 = 100 - ((+svg.attr("height") - margin.top - margin.bottom - y(0))/+svg.attr("height")*100) + "%";
+    console.log(string1);
+    //d3.select("#stop2").attr("offset", string1)
+   // gradient1.attr("x1", string1).attr("x2", string1);
+    console.log("y(0)")
+    console.log((+svg.attr("height") - margin.top - margin.bottom - y(0))/+svg.attr("height")*100)
+
     var bars = g.selectAll(".bar").data(datamonth)
         .on("click", function(d){
             console.log(d.key);
@@ -284,9 +351,9 @@ function sortByMonth(month) {
     .attr("class", "bar")
     .style("fill", function(d) { 
             if (d.value < 0) {
-                return "steelblue";
+                return "url(#gradient2)";
             } else {
-                return "red";
+                return "url(#gradient1)"
             }
         })
     .on("click", function(d){
@@ -307,9 +374,7 @@ function sortByMonth(month) {
             .style("opacity", 0);
        });
     
-    // Scale the range of the data again
-    x.domain([+fromYear-0.5, (+toYear+0.9)]);
-    y.domain([Math.min(d3.min(datamonth, function(d) { return d.value; }), 0), d3.max(datamonth, function(d) { return d.value; })]);
+    
     /* Update the axes */
     xAxis = d3.axisBottom(x)
                     .tickSize(5)
@@ -352,9 +417,9 @@ function sortByMonth(month) {
         })
         .style("fill", function(d) { 
             if (d.value < 0) {
-                return "steelblue";
+                return "url(#gradient2)";
             } else {
-                return "red";
+                return "url(#gradient1)"
             }
         });
     svg2.select(".x.axis") // change the x axis
@@ -403,9 +468,9 @@ function sortByChosenYear(year) {
     .attr("class", "bar")
     .style("fill", function(d) { 
             if (d.value < 0) {
-                return "steelblue";
+                return "url(#gradient2)";
             } else {
-                return "red";
+                return "url(#gradient1)"
             }
         })
     .on("click", null)
@@ -469,9 +534,9 @@ function sortByChosenYear(year) {
         })
         .style("fill", function(d) { 
             if (d.value < 0) {
-                return "steelblue";
+                return "url(#gradient2)";
             } else {
-                return "red";
+                return "url(#gradient1)"
             }
         });
     svg2.select(".x.axis") // change the x axis
