@@ -10,10 +10,12 @@
 	<!-- <script type="text/javascript" src="js/script5.js"></script> -->
 </head>
 <body>
-	<h1>Mean Temperatures 1756-2015</h1>
+	<div class="width1560">
+		<h1>Mean Temperatures 1756-2015</h1>
+	</div>
 	<div id="parent">
 		<div id="wide">
-			<h2 class="marginLeft15">Select a specific month to view the mean temperatures in the graph</h2>
+			<h2 class="marginLeft15">Yearly/Monthly Mean Temperatures</h2>
 			<select id="monthSelection" class="marginLeft20" onchange="updateData()">
 				<option>-- Yearly --</option>
 				<option>January</option>
@@ -30,18 +32,17 @@
 				<option>December</option>
 			</select>
 
-			<div style="margin-top: 20px;">
 				<strong class="marginLeft20">From</strong>
-				<select class="marginLeft20" id="timeSpanYear1"></select>
+				<select class="marginLeft20" id="timeSpanYear1" onchange="updateData()"></select>
 				<strong class="marginLeft20">to</strong>
-				<select class="marginLeft20" id="timeSpanYear2"></select>
-				<div class="marginLeft20">Click a bar in the chart to view more detailed information about the selected year.</div>
-			</div>
+				<select class="marginLeft20" id="timeSpanYear2" onchange="updateData()"></select>
+				<div class="marginLeft20 marginTop10">Click a bar in the chart to view more detailed information about the selected year.</div>
 		</div>
 
 		<div id="narrow">
-			<h2 class="marginLeft15">Select two years to compare their monthly temperatures</h2>
+			<h2 class="marginLeft15">Compare Monthly Temperatures</h2>
 			<select class="marginLeft20" id="compareYear1"></select>
+			<strong class="marginLeft20">and</strong>
 			<select class="marginLeft20" id="compareYear2"></select>
 
 			<button class="button marginLeft20" onclick="updateCompare()">Compare</button>

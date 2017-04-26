@@ -10,22 +10,30 @@ var compareYear2 = document.getElementById("compareYear2");
 var timeSpanYear1 = document.getElementById("timeSpanYear1");
 var timeSpanYear2 = document.getElementById("timeSpanYear2");
 for (var i = 1756; i <= 2015; i++) {
+    // op1 & op2 = comparison-knappar
     var opt1 = document.createElement('option');
     opt1.value = i;
     opt1.innerHTML = i;
     compareYear1.appendChild(opt1);
     
     var opt2 = document.createElement('option');
+            if (i == 2015){
+        opt2.selected = "selected"
+    }
     opt2.value = i;
     opt2.innerHTML = i;
     compareYear2.appendChild(opt2);
 
+    // opt3 & opt4 = select time range in graph
     var opt3 = document.createElement('option');
     opt3.value = i;
     opt3.innerHTML = i;
     timeSpanYear1.appendChild(opt3);
 
     var opt4 = document.createElement('option');
+        if (i == 2015){
+        opt4.selected = "selected"
+    }
     opt4.value = i;
     opt4.innerHTML = i;
     timeSpanYear2.appendChild(opt4);

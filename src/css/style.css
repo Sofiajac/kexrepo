@@ -1,12 +1,14 @@
-body > h1{
+body h1{
   text-align: center;
 }
 
 #parent {
   display: flex;
+  text-align: center;
 }
 #narrow {
   width: 50%;
+  text-align: center;
   /*background: lightblue;*/
   /* Just so it's visible */
 }
@@ -113,6 +115,10 @@ body select {
 
 .marginLeft20 {
   margin-left: 20px;
+}
+
+.marginTop10 {
+  margin-top: 10px;
 }
 
 .button {
