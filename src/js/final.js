@@ -1,5 +1,5 @@
 var svg = d3.select("svg");
-var margin = {top: 20, right: 20, bottom: 30, left: 40};
+var margin = {top: 20, right: 20, bottom: 30, left: 60};
 var width = +svg.attr("width") - margin.left - margin.right;
 var height = +svg.attr("height") - margin.top - margin.bottom;
 
@@ -88,6 +88,16 @@ var gradient2 = svg.append("defs")
     .attr("offset", "100%")
     .attr("stop-color", "steelblue")
     .attr("stop-opacity", 1);
+
+// text label for the y axis
+  svg.append("text")
+      .attr("transform", "rotate(-90)")
+      .attr("y", 0)
+      .attr("x",0 - (height / 2))
+      .attr("dy", "1em")
+      .style("text-anchor", "middle")
+      .style("font-size", "1.2em")
+      .html("Temperature &#8451;");
 
 /* Create the chart area and move it to the correct position in the svg graph */
 var g = svg.append("g")
