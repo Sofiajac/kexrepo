@@ -681,6 +681,7 @@ legend.append("rect")
     .attr("x", 20)
     .style("fill", "steelblue")
 legend.append("text")
+    .attr("id", "legendText1")
     .attr("x", 42)
     .attr("y", 14)
     .html(compareYear1)
@@ -697,6 +698,7 @@ legend.append("rect")
     .attr("y", 20)
     .style("fill", "blue")
 legend.append("text")
+    .attr("id", "legendText2")
     .attr("x", 42)
     .attr("y", 34)
     .html(compareYear2)
@@ -911,6 +913,9 @@ function updateCompare() {
     document.getElementById('fade').style.display='block';
     var compareYear1 = document.getElementById('compareYear1').value;
     var compareYear2 = document.getElementById('compareYear2').value;
+
+    d3.select("#legendText1").html(compareYear1);
+    d3.select("#legendText2").html(compareYear2);
 
     var updateNewData1 = json_data.filter(function (entry){
         return entry.year == compareYear1;// && entry.month == compareMonth1 + 1;
