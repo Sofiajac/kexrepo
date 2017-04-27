@@ -679,7 +679,7 @@ legend.append("rect")
     .attr("height", 18)
     .attr("width", 18)
     .attr("x", 20)
-    .style("fill", "steelblue")
+    .style("fill", "blue")
 legend.append("text")
     .attr("id", "legendText1")
     .attr("x", 42)
@@ -696,7 +696,7 @@ legend.append("rect")
     .attr("width", 18)
     .attr("x", 20)
     .attr("y", 20)
-    .style("fill", "blue")
+    .style("fill", "darkblue")
 legend.append("text")
     .attr("id", "legendText2")
     .attr("x", 42)
@@ -718,7 +718,7 @@ innerG.selectAll(".year1.bar")
     .data(meanData1)
     .enter().append("rect")
     .attr("class", "year1 bar")
-    .attr("x", function(d) { return innerX(d.key)-innerWidth/26; })
+    .attr("x", function(d) { return innerX(d.key)-innerWidth/26+5; })
     .attr("y", function(d) { 
         if (d.value < 0) {
             return innerY(0);
@@ -726,7 +726,7 @@ innerG.selectAll(".year1.bar")
             return innerY(d.value);
         }
     })
-    .attr("width", innerWidth/13/2)
+    .attr("width", innerWidth/13/2-5)
     .attr("height", function(d) { 
         if (d.value < 0) {
             return innerY(d.value) - innerY(0);
@@ -736,7 +736,7 @@ innerG.selectAll(".year1.bar")
     })
     .style("fill", function(d) { 
         if (d.value < 0) {
-            return "steelblue";
+            return "blue";
         } else {
             return "red";
         }
@@ -773,7 +773,7 @@ innerG.selectAll(".year1.bar")
             return innerY(d.value);
         }
     })
-    .attr("width", innerWidth/13/2)
+    .attr("width", innerWidth/13/2-5)
     .attr("height", function(d) { 
         if (d.value < 0) {
             return innerY(d.value) - innerY(0);
@@ -783,7 +783,7 @@ innerG.selectAll(".year1.bar")
     })
     .style("fill", function(d) { 
         if (d.value < 0) {
-            return "blue";
+            return "darkblue";
         } else {
             return "darkred";
         }
@@ -879,7 +879,7 @@ svg.transition().selectAll(".bar")   // change the bars
     })
     .style("fill", function(d) { 
         if (d.value < 0) {
-            return "steelblue";
+            return "blue";
         } else {
             return "red";
         }
@@ -1020,7 +1020,7 @@ function updateCompare() {
             .call(inneryAxis);
 
         innerSVG.transition().selectAll(".year1.bar").duration(750)
-            .attr("x", function(d) { return innerX(d.key)-innerWidth/26; })
+            .attr("x", function(d) { return innerX(d.key)-innerWidth/26+5; })
             .attr("y", function(d) { 
                 if (d.value < 0) {
                     return innerY(0);
@@ -1028,7 +1028,7 @@ function updateCompare() {
                     return innerY(d.value);
                 }
             })
-            .attr("width", innerWidth/13/2)
+            .attr("width", innerWidth/13/2-5)
             .attr("height", function(d) { 
                 if (d.value < 0) {
                     return innerY(d.value) - innerY(0);
@@ -1038,7 +1038,7 @@ function updateCompare() {
             })
             .style("fill", function(d) { 
                 if (d.value < 0) {
-                    return "steelblue";
+                    return "blue";
                 } else {
                     return "red";
                 }
@@ -1053,7 +1053,7 @@ function updateCompare() {
                     return innerY(d.value);
                 }
             })
-            .attr("width", innerWidth/13/2)
+            .attr("width", innerWidth/13/2-5)
             .attr("height", function(d) { 
                 if (d.value < 0) {
                     return innerY(d.value) - innerY(0);
@@ -1063,7 +1063,7 @@ function updateCompare() {
             })
             .style("fill", function(d) { 
                 if (d.value < 0) {
-                    return "blue";
+                    return "darkblue";
                 } else {
                     return "darkred";
                 }
