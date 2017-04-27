@@ -248,6 +248,11 @@ function sortByYear() {
     // Scale the range of the data again
     x.domain([+fromYear-0.5, (+toYear+0.9)]);
     y.domain([Math.min(d3.min(dataYear, function(d) { return d.value; }), 0), d3.max(dataYear, function(d) { return d.value; })]);
+
+    var string1 = 100 - ((+svg.attr("height") - margin.top - margin.bottom - y(0))/+svg.attr("height")*100) + "%";
+    console.log(string1);
+    d3.select("#stop2").attr("offset", string1)
+
     /* Update the axes */
     xAxis = d3.axisBottom(x)
                     .tickSize(5)
@@ -333,8 +338,8 @@ function sortByMonth(month) {
     //d3.select("#stop1").attr("offset", (+svg.attr("height") - margin.top - margin.bottom - y(0)))//.attr("y2", y(d3.max(datamonth, function(d) { return d.value; })));
     var string1 = 100 - ((+svg.attr("height") - margin.top - margin.bottom - y(0))/+svg.attr("height")*100) + "%";
     console.log(string1);
-    //d3.select("#stop2").attr("offset", string1)
-   // gradient1.attr("x1", string1).attr("x2", string1);
+    d3.select("#stop2").attr("offset", string1)
+    //gradient1.attr("x1", string1).attr("x2", string1);
     console.log("y(0)")
     console.log((+svg.attr("height") - margin.top - margin.bottom - y(0))/+svg.attr("height")*100)
 
@@ -662,6 +667,39 @@ var inneryAxis = d3.axisLeft(innerY)
 var tooltip = d3.select("body").append("div")
     .attr("class", "tooltip")
     .style("opacity", 0);
+/* Append the legend */
+var legend = innerG.append("g")
+    .classed("legend", true)
+    .attr("transform", "translate(20," + 20 + ")");
+legend.append("rect")
+    .attr("height", 18)
+    .attr("width", 18)
+    .style("fill", "red")
+legend.append("rect")
+    .attr("height", 18)
+    .attr("width", 18)
+    .attr("x", 20)
+    .style("fill", "steelblue")
+legend.append("text")
+    .attr("x", 42)
+    .attr("y", 14)
+    .html(compareYear1)
+
+legend.append("rect")
+    .attr("height", 18)
+    .attr("width", 18)
+    .attr("y", 20)
+    .style("fill", "darkred")
+legend.append("rect")
+    .attr("height", 18)
+    .attr("width", 18)
+    .attr("x", 20)
+    .attr("y", 20)
+    .style("fill", "blue")
+legend.append("text")
+    .attr("x", 42)
+    .attr("y", 34)
+    .html(compareYear2)
 
 /* Append the axes */
 innerG.append("g")
