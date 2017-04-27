@@ -670,7 +670,7 @@ var tooltip = d3.select("body").append("div")
 /* Append the legend */
 var legend = innerG.append("g")
     .classed("legend", true)
-    .attr("transform", "translate(20," + 20 + ")");
+    .attr("transform", "translate(20," + 5 + ")");
 legend.append("rect")
     .attr("height", 18)
     .attr("width", 18)
