@@ -186,6 +186,7 @@ g.selectAll(".bar")
 
 /* Updates the chart to show the mean temperature each year */
 function sortByYear() {
+    d3.select("#clickBarText").transition().duration(750).style("opacity", 1);
     var fromYear = document.getElementById("timeSpanYear1").value;
     var toYear = document.getElementById("timeSpanYear2").value;
     console.log(fromYear);
@@ -310,6 +311,7 @@ function sortByYear() {
 
 /* Updates the chart to show the mean temperature over a specified month each year */
 function sortByMonth(month) {
+    d3.select("#clickBarText").transition().duration(750).style("opacity", 1);
     var fromYear = document.getElementById("timeSpanYear1").value;
     var toYear = document.getElementById("timeSpanYear2").value;
     console.log(fromYear);
@@ -446,6 +448,7 @@ function sortByMonth(month) {
     }
 
 function sortByChosenYear(year) {
+    d3.select("#clickBarText").transition().duration(750).style("opacity", 0);
     var newData = json_data.filter(function (entry){
                 return entry.year == year;
             });
@@ -512,6 +515,11 @@ function sortByChosenYear(year) {
     x.domain([0.5, 12.9])
     console.log(x.domain());
     y.domain([Math.min(d3.min(groupedData, function(d) { return d.value; }), 0), d3.max(groupedData, function(d) { return d.value; })]);
+
+    var string1 = 100 - ((+svg.attr("height") - margin.top - margin.bottom - y(0))/+svg.attr("height")*100) + "%";
+    console.log(string1);
+    d3.select("#stop2").attr("offset", string1)
+
     /* Update the axes */
     xAxis = d3.axisBottom(x)
                     .tickSize(5)
@@ -618,19 +626,19 @@ console.log(meanData2);
 console.log(typeof meanData2);
 
 
-var innerSVG = d3.select("#popup").append("svg").attr("id", "innerSVG").attr("width", 750).attr("height", 470);
+var innerSVG = d3.select("#popup").append("svg").attr("id", "innerSVG").attr("width", 750).attr("height", 380);
 // text label for the y axis
 innerSVG.append("text")
     .attr("transform", "rotate(-90)")
     .attr("y", -5)
-    .attr("x",0 - (470 / 2))
+    .attr("x",0 - (380 / 2))
     .attr("dy", "1em")
     .style("text-anchor", "middle")
     .style("font-size", "1.2em")
     .html("Temperature &#8451;");
 var innerMargin = {top: 20, right: 20, bottom: 30, left: 40};
 var innerWidth = 750 - innerMargin.left - innerMargin.right;
-var innerHeight = 470 - innerMargin.top - innerMargin.bottom;
+var innerHeight = 380 - innerMargin.top - innerMargin.bottom;
     /* Create the chart area and move it to the correct position in the svg graph */
 var innerG = innerSVG.append("g")
     .attr("transform", "translate(" + innerMargin.left + "," + innerMargin.top + ")");

@@ -31,12 +31,13 @@
 				<option>November</option>
 				<option>December</option>
 			</select>
-
+				<!-- Select years to filter from and to -->
 				<strong class="marginLeft20">From</strong>
 				<select class="marginLeft20" id="timeSpanYear1" onchange="updateData()"></select>
 				<strong class="marginLeft20">to</strong>
 				<select class="marginLeft20" id="timeSpanYear2" onchange="updateData()"></select>
-				<div class="marginLeft20 marginTop10">Click a bar in the chart to view more detailed information about the selected year.</div>
+				
+				<div id="clickBarText" class="marginLeft20 marginTop10">Click a bar in the chart to view more detailed information about the selected year.</div>
 		</div>
 
 		<div id="narrow">
