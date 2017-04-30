@@ -1,3 +1,12 @@
+var varHistory = [
+    {
+        "month": 0,
+        "from": 1756,
+        "to": 2015
+    }
+];
+
+
 var svg = d3.select("svg");
 var margin = {top: 20, right: 20, bottom: 30, left: 60};
 var width = +svg.attr("width") - margin.left - margin.right;
@@ -47,6 +56,7 @@ var data = d3.nest()
     }).entries(json_data);
     //console.log(data);
 
+/* Create a linear gradient */
 var gradient1 = svg.append("defs")
     .append("linearGradient")
     .attr("id", "gradient1")
@@ -55,14 +65,15 @@ var gradient1 = svg.append("defs")
     .attr("x2", "0%")
     .attr("y2", "100%")
     .attr("gradientUnits", "userSpaceOnUse")
-    //.attr("spreadMethod", "pad");
 
+    /* Add the color red to one end */
     gradient1.append("stop")
     .attr("id", "stop1")
     .attr("offset", "0%")
     .attr("stop-color", "red")
     .attr("stop-opacity", 1);
 
+    /* Add the color lightgrey to the other end */
     gradient1.append("stop")
     .attr("id", "stop2")
     .attr("offset", "100%")
@@ -572,6 +583,12 @@ function sortByChosenYear(year) {
 
 // Update data section on click of button in HTML
 function updateData() {
+    console.log("Running updateData!");
+    varHistory.push({"month" : document.getElementById('monthSelection').selectedIndex, 
+                    "from" : document.getElementById('timeSpanYear1').value,
+                    "to": document.getElementById('timeSpanYear1').value
+                });
+
     var chosenMonth = document.getElementById('monthSelection').selectedIndex;
     if (chosenMonth == 0) {
         sortByYear();
@@ -595,7 +612,7 @@ var compareYear2 = document.getElementById('compareYear2').value;
 var newData1 = json_data.filter(function (entry){
     return entry.year == compareYear1;// && entry.month == compareMonth1 + 1;
 });
-console.log(newData1);
+//console.log(newData1);
 
 var meanData1 = d3.nest()
     .key(function(d) { return +d.month;
@@ -606,12 +623,12 @@ var meanData1 = d3.nest()
         });
     }).entries(newData1);
 
-console.log(meanData1);
+//console.log(meanData1);
 
 var newData2 = json_data.filter(function (entry){
     return entry.year == compareYear2;// && entry.month == compareMonth2 + 1;
 });
-console.log(newData2);
+//console.log(newData2);
 
 var meanData2 = d3.nest()
     .key(function(d) { return +d.month;
@@ -622,8 +639,8 @@ var meanData2 = d3.nest()
         });
     }).entries(newData2);
 
-console.log(meanData2);
-console.log(typeof meanData2);
+//console.log(meanData2);
+//console.log(typeof meanData2);
 
 
 var innerSVG = d3.select("#popup").append("svg").attr("id", "innerSVG").attr("width", 750).attr("height", 380);
@@ -679,20 +696,25 @@ var tooltip = d3.select("body").append("div")
 var legend = innerG.append("g")
     .classed("legend", true)
     .attr("transform", "translate(20," + 5 + ")");
+
 legend.append("rect")
     .attr("height", 18)
     .attr("width", 18)
     .style("fill", "red")
+
+/* Add a blue rectangle */
 legend.append("rect")
     .attr("height", 18)
     .attr("width", 18)
     .attr("x", 20)
     .style("fill", "blue")
+
+/* Add text next to the rectangle */
 legend.append("text")
     .attr("id", "legendText1")
     .attr("x", 42)
     .attr("y", 14)
-    .html(compareYear1)
+    .html(compareYear1) // Add the first year
 
 legend.append("rect")
     .attr("height", 18)
@@ -1082,4 +1104,26 @@ function hidePopup() {
         console.log("hidePopup");
         document.getElementById('popup').style.display='none';
         document.getElementById('fade').style.display='none';
+}
+
+
+
+
+
+
+
+// Update data section on click of button in HTML
+function back() {
+    if (varHistory.length > 1) {
+        varHistory.pop();
+        var params = varHistory[varHistory.length-1];
+        document.getElementById('monthSelection').selectedIndex = params.month;
+        document.getElementById('timeSpanYear1').value = params.from;
+        document.getElementById('timeSpanYear2').value = params.to;
+        if (params.month == 0) {
+            sortByYear();
+        } else {
+            sortByMonth(params.month);
+        }
+    }
 }
