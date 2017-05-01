@@ -135,3 +135,8 @@ body select {
   font-family: Cambria;
   font-size: 1.2em;
 }
+
+.buttonPadding {
+  padding: 6px 15px;
+}
+

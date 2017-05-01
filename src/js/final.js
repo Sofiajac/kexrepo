@@ -583,11 +583,11 @@ function sortByChosenYear(year) {
 
 // Update data section on click of button in HTML
 function updateData() {
-    console.log("Running updateData!");
+    // Store filter settings in history list
     varHistory.push({"month" : document.getElementById('monthSelection').selectedIndex, 
-                    "from" : document.getElementById('timeSpanYear1').value,
-                    "to": document.getElementById('timeSpanYear1').value
-                });
+        "from" : document.getElementById('timeSpanYear1').value,
+        "to": document.getElementById('timeSpanYear2').value
+    });
 
     var chosenMonth = document.getElementById('monthSelection').selectedIndex;
     if (chosenMonth == 0) {
@@ -1112,7 +1112,7 @@ function hidePopup() {
 
 
 
-// Update data section on click of button in HTML
+// Update the bar chart according to the previous filtration
 function back() {
     if (varHistory.length > 1) {
         varHistory.pop();
